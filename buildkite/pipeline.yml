@@ -6,5 +6,3 @@ steps:
 
   - label: ":shipit: Push images"
     command: scripts/push
-
-

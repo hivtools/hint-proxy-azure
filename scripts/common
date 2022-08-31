@@ -16,7 +16,7 @@ else
     GIT_BRANCH=$(git -C "$PACKAGE_ROOT" symbolic-ref --short HEAD)
 fi
 
-REGISTRY=reside
+REGISTRY=mrcide
 NAME=hint-proxy
 
 APP_DOCKER_COMMIT_TAG=$REGISTRY/$NAME:$GIT_SHA
