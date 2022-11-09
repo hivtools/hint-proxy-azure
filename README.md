@@ -9,6 +9,28 @@ This repository contains support for running a `nginx` proxy in a docker contain
 
 The configuration takes as a starting point [`montagu-proxy`](https://github.com/vimc/montagu-proxy), which was adapted for use with [`orderly-web-deploy`](https://github.com/vimc/orderly-web-deploy).
 
+
+## Development
+
+To develop the proxy it is often easiest to make changes to the config directly in a running container on one of the development servers. Reload nginx config and see if the change has worked. Then update the config here and deploy it dev for a final check.
+
+To edit the config enter the proxy container
+```
+docker exec -it hint_proxy bash
+```
+
+install vim (or other) and edit the config file
+```
+apt-get update
+apt-get install vim
+vim /etc/nginx/nginx.conf
+```
+
+reload nginx config
+```
+nginx -s reload
+```
+
 ### Configuration
 
 Before starting we need to know what we are proxying (i.e., the name of the container on the docker network that is the main entrypoint) and what the proxy will be seen as to the outside world (the hostname, and ports for http and https).  The entrypoint takes these four values as arguments.
@@ -59,12 +81,12 @@ The information ICT like in the CSR is like this:
   - Email Address: [BLANK]
   - Challenge Password: `a_password`
   - Optional company name: [BLANK]
-  
+
 Then on the [Imperial ASK](https://imperial.service-now.com/ask) site:
   - Log in with IC credentials.
   - Choose *Make a Request* and then *Security Certificate Request*.
   - Request a *Production* certificate for external use. Provide other details, and the CSR text.
-  - Check your email, or revisit the ticket for updates. 
+  - Check your email, or revisit the ticket for updates.
   - If there is a mention of an attachment that you can't see, ring 49000 and ICT helpdesk will review visibility.
 
 ICT will email back a set of 3 certificates in a zip;
