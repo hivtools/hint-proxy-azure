@@ -8,7 +8,7 @@ on:
 
 env:
   TAG_PROXY: mrcide/hint-proxy
-  TAG_PROXY_GHCR: mrc-ide/hint-proxy
+  TAG_PROXY_GHCR: hivtools/hint-proxy
 
 jobs:
   docker:
