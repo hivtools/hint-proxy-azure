@@ -3,7 +3,8 @@ FROM openresty/openresty:bullseye
 # Only used for generating self-signed certificates
 RUN apt-get update && apt-get install -y \
     curl \
-    jq
+    jq \
+    redis
 
 # Clear out existing configuration
 RUN rm /etc/nginx/conf.d/default.conf

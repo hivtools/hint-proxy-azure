@@ -1,41 +1,46 @@
 #!/usr/bin/env bash
 set -eu
 
-if [ "$#" -eq 4 ]; then
-    export SERVICE=$1
-    export HTTP_HOST=$2
-    export HTTP_PORT=$3
-    export HTTPS_PORT=$4
+if [ "$#" -eq 3 ]; then
+    export HTTP_HOST=$1
+    export HTTP_PORT=$2
+    export HTTPS_PORT=$3
 else
     echo "Usage: <service> <hostname> <port-http> <port-https>"
-    echo "e.g. docker run ... container:8888 example.com 80 443"
+    echo "e.g. docker run ... example.com 80 443"
+    echo "ENV vars for services must be available"
     exit 1
 fi
 
+check_env_vars() {
+    missing_vars=()  # Array to store names of missing variables
+
+    # Loop through each variable name passed to the function
+    for var_name in "$@"; do
+        # Check if the environment variable is set and not empty
+        if [ -z "${!var_name}" ]; then
+            missing_vars+=("$var_name")
+        fi
+    done
+
+    # If there are missing variables, output an error and exit
+    if [ ${#missing_vars[@]} -ne 0 ]; then
+        echo "Error: The following environment variables are missing: ${missing_vars[*]}"
+        return 1  # Return a non-zero status to indicate an error
+    else
+        echo "All environment variables are set."
+    fi
+}
+
+check_env_vars HINT_NAME HINTR_NAME REDIS_NAME REDIS_PORT REDIS_QUEUE_NAME
+
 echo "We will listen on ports $HTTP_PORT (http) and $HTTPS_PORT (https)"
-echo "with hostname $HTTP_HOST, proxying the service http://$SERVICE"
+echo "with hostname $HTTP_HOST"
 
 envsubst '$HTTP_HOST,$HTTP_PORT,$HTTPS_PORT,$SERVICE' \
          < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 
-# These paths must match the paths as used in the nginx.conf
-#PATH_CONFIG=/run/proxy
-#PATH_CERT="$PATH_CONFIG/certificate.pem"
-#PATH_KEY="$PATH_CONFIG/key.pem"
-#PATH_DHPARAM="$PATH_CONFIG/dhparam.pem"
-
 mkdir -p /logs
-
-# We'll copy this one directly into place - if the user wants to
-# override it they should just copy theirs in place before the
-# certificate.
-#cp /usr/local/share/ssl/dhparam.pem $PATH_DHPARAM
-
-# Wait for the ssl certificates to be copied in or generated
-#echo "Waiting for certificates at $PATH_CERT and $PATH_KEY"
-#while [ ! -e $PATH_CERT ] || [ ! -e $PATH_KEY ]; do
-#  sleep 1
-#done
 
 echo "Running nginx"
 exec nginx -p "$PWD" -c /etc/nginx/nginx.conf
