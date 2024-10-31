@@ -6,11 +6,11 @@ TEAM_ID="$1"
 AUTH_HEADER="$2"
 
 # Extract the token from the header
-TOKEN=$(echo $AUTH_HEADER | awk '{print $2}')
+TOKEN=$(echo "$AUTH_HEADER" | awk '{print $2}')
 
 RES=$(curl -s \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer $TOKEN" \
   https://api.github.com/user/teams?per_page=100)
 
-jq -e --argjson TEAM "$TEAM_ID" '.[] | select(.id == $TEAM) | .id' <<< "$RES" > /dev/null
+echo "$RES" | jq -e --argjson TEAM "$TEAM_ID" '.[] | select(.id == $TEAM) | .id' > /dev/null
