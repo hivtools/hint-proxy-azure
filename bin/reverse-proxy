@@ -38,4 +38,4 @@ envsubst '$HTTP_HOST,$HTTP_PORT,$HTTPS_PORT,$SERVICE' \
 #done
 
 echo "Running nginx"
-exec nginx -g "daemon off;"
+exec nginx -g 'daemon off;' -p "$PWD" -c /etc/nginx/nginx.conf
