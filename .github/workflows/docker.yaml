@@ -7,7 +7,7 @@ on:
     branches: [main, master]
 
 env:
-  TAG_PROXY: hivtools/hint-proxy
+  TAG_PROXY: hivtools/hint-proxy-azure
 
 jobs:
   docker:
