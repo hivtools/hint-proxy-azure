@@ -24,8 +24,6 @@ envsubst '$HTTP_HOST,$HTTP_PORT,$HTTPS_PORT,$SERVICE' \
 #PATH_KEY="$PATH_CONFIG/key.pem"
 #PATH_DHPARAM="$PATH_CONFIG/dhparam.pem"
 
-mkdir -p /logs
-
 # We'll copy this one directly into place - if the user wants to
 # override it they should just copy theirs in place before the
 # certificate.
@@ -38,4 +36,4 @@ mkdir -p /logs
 #done
 
 echo "Running nginx"
-exec nginx -g 'daemon off;' -p "$PWD" -c /etc/nginx/nginx.conf
+exec nginx -p "$PWD" -c /etc/nginx/nginx.conf
