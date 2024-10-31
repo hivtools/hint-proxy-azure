@@ -1,6 +1,6 @@
 ## Dockerised reverse proxy
 
-[![Build Status](https://github.com/hivtools/nginx-proxy-azure/actions/workflows/docker/badge.svg)](https://github.com/hivtools/nginx-proxy-azure/actions/workflows/docker/badge.svg)
+[![Build Docker Image](https://github.com/hivtools/hint-proxy-azure/actions/workflows/docker.yaml/badge.svg)](https://github.com/hivtools/hint-proxy-azure/actions/workflows/docker.yaml)
 
 This repository contains support for running a `nginx` proxy in a docker container in order to secure a web application.  It makes a number of assumptions:
 
