@@ -1,6 +1,6 @@
 ## Dockerised reverse proxy
 
-[![Build Status](https://travis-ci.com/reside-ic/proxy-nginx.svg?branch=master)](https://travis-ci.com/reside-ic/proxy-nginx)
+[![Build Status](https://github.com/hivtools/nginx-proxy-azure/actions/workflows/docker/badge.svg)](https://github.com/hivtools/nginx-proxy-azure/actions/workflows/docker/badge.svg)
 
 This repository contains support for running a `nginx` proxy in a docker container in order to secure a web application.  It makes a number of assumptions:
 
@@ -16,7 +16,7 @@ To develop the proxy it is often easiest to make changes to the config directly 
 
 To edit the config enter the proxy container
 ```
-docker exec -it hint_proxy bash
+docker exec -it hint-proxy-azure bash
 ```
 
 install vim (or other) and edit the config file
