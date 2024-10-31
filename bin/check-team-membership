@@ -13,4 +13,4 @@ RES=$(curl -s \
   -H "Authorization: Bearer $TOKEN" \
   https://api.github.com/user/teams?per_page=100)
 
-echo "$RES" | jq -e --argjson TEAM "$TEAM_ID" '.[] | select(.id == $TEAM) | .id' > /dev/null
+echo "$RES" | jq -e --argjson TEAM "$TEAM_ID" '.[] | select(.id == $TEAM) | .id' 2> /dev/null
