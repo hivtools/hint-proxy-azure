@@ -32,12 +32,12 @@ check_env_vars() {
     fi
 }
 
-check_env_vars HINTR_NAME REDIS_NAME REDIS_PORT REDIS_QUEUE_NAME
+check_env_vars HINTR_NAME REDIS_NAME REDIS_PORT
 
 echo "We will listen on ports $HTTP_PORT (http) and $HTTPS_PORT (https)"
 echo "with hostname $HTTP_HOST"
 
-envsubst '$HTTP_HOST,$HTTP_PORT,$HTTPS_PORT,$HINTR_NAME,$REDIS_NAME,$REDIS_PORT,$REDIS_QUEUE_NAME' \
+envsubst '$HTTP_HOST,$HTTP_PORT,$HTTPS_PORT,$HINTR_NAME,$REDIS_NAME,$REDIS_PORT' \
          < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 
 mkdir -p /logs
