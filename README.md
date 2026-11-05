@@ -121,7 +121,7 @@ During deployment you will need to read these keys from the vault and inject the
 ### Usage
 
 ```
-docker run --name proxy --network yournetwork reside/proxy-nginx:reside-53 service example.com 80 443
+docker run --name proxy --network yournetwork ghcr.io/hivtools/hint-proxy-azure:main service example.com 80 443
 docker cp ssl/certificate.pem proxy:/run/proxy/certificate.pem
 docker cp ssl/key.pem proxy:/run/proxy/key.pem
 ```
